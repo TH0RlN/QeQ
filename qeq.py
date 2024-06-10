@@ -1,5 +1,6 @@
-from pyswip import Prolog
+import os
 import pandas as pd
+from pyswip import Prolog
 
 def get_all_characteristics(prolog):
     query_res = list(prolog.query('character(_, X)'))
@@ -39,11 +40,18 @@ def create_df(prolog):
     return df
 
 
+
 def main():
     prolog = Prolog()
     prolog.consult("qeq-db.pl")
     df = create_df(prolog)
-    print(df)
+
+    os.system('clear' if os.name == 'posix' else 'cls')
+    print("Piensa en un personaje de la siguiente lista:")
+    for character in df.index:
+        print(" - " + character)
+    input("Presiona Enter cuando lo tengas pensado...")
+
 
 if __name__ == '__main__':
     main()
