@@ -39,10 +39,12 @@ def create_df(prolog):
     df.fillna(0, inplace=True)
     return df
 
-def get_most_common_characteristic(df):
+def get_max_char(df):
     return df.sum(axis=0).idxmax()
 
-
+def get_mean_char(df):
+    mean = df.sum(axis=0).sum() / df.count(axis=0)[0]
+    return df.sum(axis=0).apply(lambda x: abs(x - mean)).idxmin()
 def game_loop(df):
     os.system('clear' if os.name == 'posix' else 'cls')
     print("Piensa en un personaje de la siguiente lista:")
@@ -58,7 +60,7 @@ def game_loop(df):
         for character in df.index:
             print(" - " + character)
         print("¿Tu personaje tiene la siguiente característica?")
-        characteristic = get_most_common_characteristic(df)
+        characteristic = get_mean_char(df)
         print(" - " + characteristic)
 
         answer = input("Respuesta (s/n): ")
@@ -75,10 +77,15 @@ def game_loop(df):
 
         pregunta += 1
     
-    os.system('clear' if os.name == 'posix' else 'cls')
-    print("\033[1;30mTu personaje es...\033[0;30m")
-    print(" - " + df.index[0])
-    print("\n\033[1;30m¡Gracias por jugar!\033[0;30m\n\n")
+    try:
+        personaje = df.index[0]
+        os.system('clear' if os.name == 'posix' else 'cls')
+        print("\033[1;30mTu personaje es...\033[0;30m")
+        print(" - " + personaje)
+        print("\n\033[1;30m¡Gracias por jugar!\033[0;30m\n\n")
+    except IndexError:
+        os.system('clear' if os.name == 'posix' else 'cls')
+        print("\033[1;31mME HAS MENTIDO\033[0;30m\n\n")
 
 
 def main():
