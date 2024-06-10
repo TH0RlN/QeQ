@@ -18,6 +18,8 @@ El algoritmo cuenta cuantas personas tienen cada característica, calcula la med
 
 ## Estructura del Agente
 
+![Medio](./img/Medio.png)
+
 ## Programación lógica
 
 La programación lógica se aplica bastante bien a este juego porque está pensada para representar atributos y características de forma sencilla gracias a su formato declarativo.
@@ -25,3 +27,6 @@ La programación lógica se aplica bastante bien a este juego porque está pensa
 ## Base de datos Prolog
 
 He utilizado una BD de Prolog para representar a cada personaje. Cada uno de estos personajes está representado por un enunciado que contiene el nombre del personaje y una lista con las características que lo representan.
+
+## Los personajes
+![Personajes](./img/personajes.jpg)
