@@ -39,6 +39,46 @@ def create_df(prolog):
     df.fillna(0, inplace=True)
     return df
 
+def get_most_common_characteristic(df):
+    return df.sum(axis=0).idxmax()
+
+
+def game_loop(df):
+    os.system('clear' if os.name == 'posix' else 'cls')
+    print("Piensa en un personaje de la siguiente lista:")
+    for character in df.index:
+        print(" - " + character)
+    input("Presiona Enter cuando lo tengas pensado...")
+
+    pregunta = 1
+    while df.shape[0] > 1:
+        os.system('clear' if os.name == 'posix' else 'cls')
+        print("\033[1;30mPregunta %d\033[0;30m" % pregunta)
+        print("Personajes restantes: " + str(df.shape[0]))
+        for character in df.index:
+            print(" - " + character)
+        print("¿Tu personaje tiene la siguiente característica?")
+        characteristic = get_most_common_characteristic(df)
+        print(" - " + characteristic)
+
+        answer = input("Respuesta (s/n): ")
+        while answer not in ['s', 'n', 'S', 'N']:
+            print("Respuesta inválida")
+            answer = input("Respuesta (s/n): ")
+
+        if answer in ['s', 'S']:
+            df = df[df[characteristic] == 1]
+            df.drop(columns=[characteristic], inplace=True)
+        else:
+            df = df[df[characteristic] == 0]
+            df.drop(columns=[characteristic], inplace=True)
+
+        pregunta += 1
+    
+    os.system('clear' if os.name == 'posix' else 'cls')
+    print("\033[1;30mTu personaje es...\033[0;30m")
+    print(" - " + df.index[0])
+    print("\n\033[1;30m¡Gracias por jugar!\033[0;30m\n\n")
 
 
 def main():
@@ -46,11 +86,11 @@ def main():
     prolog.consult("qeq-db.pl")
     df = create_df(prolog)
 
-    os.system('clear' if os.name == 'posix' else 'cls')
-    print("Piensa en un personaje de la siguiente lista:")
-    for character in df.index:
-        print(" - " + character)
-    input("Presiona Enter cuando lo tengas pensado...")
+    try:
+        game_loop(df)
+    except KeyboardInterrupt:
+        os.system('clear' if os.name == 'posix' else 'cls')
+        print("\033[1;30m\nHasta la próxima!\033[0;30m\n\n")
 
 
 if __name__ == '__main__':
