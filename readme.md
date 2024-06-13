@@ -29,4 +29,19 @@ La programación lógica se aplica bastante bien a este juego porque está pensa
 He utilizado una BD de Prolog para representar a cada personaje. Cada uno de estos personajes está representado por un enunciado que contiene el nombre del personaje y una lista con las características que lo representan.
 
 ## Los personajes
+
 ![Personajes](./img/personajes.jpg)
+
+## Uso y ejecución
+
+Crea un entorno conda con las mismas especificaciones (es necesario tener una instalación compatible de SWI Prolog):
+
+```bash
+conda env create -f environment.yml
+```
+
+Ejecuta el programa:
+
+```shell
+python qeq.py
+```
