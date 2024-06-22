@@ -38,6 +38,7 @@ Crea un entorno conda con las mismas especificaciones (es necesario tener una in
 
 ```bash
 conda env create -f environment.yml
+conda activate qeq
 ```
 
 Ejecuta el programa:
